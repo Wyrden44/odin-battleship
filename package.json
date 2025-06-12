@@ -1,24 +1,25 @@
 {
-  "name": "odin-template",
+  "name": "odin-battleship",
   "version": "1.0.0",
-  "description": "This is a template for Odin projects",
+  "description": "Battleship game portfolio project",
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --open",
     "build": "webpack",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Wyrden44/odin-template.git"
+    "url": "git+https://github.com/Wyrden44/odin-battleship.git"
   },
   "keywords": [],
   "author": "Pawel Gurlo",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Wyrden44/odin-template/issues"
+    "url": "https://github.com/Wyrden44/odin-battleship/issues"
   },
-  "homepage": "https://github.com/Wyrden44/odin-template#readme",
+  "homepage": "https://github.com/Wyrden44/odin-battleship#readme",
   "devDependencies": {
     "@eslint/css": "^0.8.1",
     "@eslint/js": "^9.28.0",
@@ -26,6 +27,7 @@
     "eslint": "^9.28.0",
     "globals": "^16.2.0",
     "html-webpack-plugin": "^5.6.3",
+    "jest": "^30.0.0",
     "style-loader": "^4.0.0",
     "webpack": "^5.99.9",
     "webpack-cli": "^6.0.1",
