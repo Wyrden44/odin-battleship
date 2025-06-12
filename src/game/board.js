@@ -7,7 +7,8 @@ export default class Board {
         this.ships = [];
     }
 
-    receiveAttack(pos) {
+    receiveMove(pos) {
+        // updates the hit position and ship (if hit)
         let ship = this.shipHit(pos);
         let marker = 1; // miss
         if (ship !== null) {

@@ -9,7 +9,7 @@ class GameController {
 
     playRound(playerNumber, position) {
         if (this.validateMove(playerNumber, position)) {
-            this.currentPlayer.playMove(position);
+            this.currentPlayer.receiveMove(position);
 
             if (this.currentPlayer.gameOver()) {
                 console.log("GAME OVER!");
