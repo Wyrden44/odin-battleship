@@ -42,4 +42,18 @@ export default class Ship {
         console.log("CELLS", this.cells)
         return !this.cells.includes(false);
     }
+
+    getAllSquarePositions() {
+        // returns all grid position of the ships cells
+        const positions = [];
+        for (let i=0; i<this.shipLength; i++) {
+            if (this.position === "vertical") {
+                positions.push([this.startPosition[0], this.startPosition[1]+1]);
+            }
+            else {
+                positions.push([this.startPosition[0]+i, this.startPosition[1]]);
+            }
+        }
+        return positions;
+    }
 }
