@@ -3,8 +3,10 @@ import Ship from "./ship";
 export default class Board {
     constructor(width, height) {
         // 0 - empty; 1 - missed; 2 - hit
-        this.board = new Array(width).fill(new Array(height).fill(0));
+        this.board = Array.from({ length: width }, () => Array.from({ length: height }, () => 0));
         this.ships = [];
+        this.width = width;
+        this.height = height;
     }
 
     receiveMove(pos) {
@@ -36,15 +38,19 @@ export default class Board {
 
     markSunkShipSquares(ship) {
         // marks all squares around a ship after sinking
-        for (let pos of ship.getAllSquarePositions()) {
+        const positions = ship.getAllSurroundingPositions();
+        for (let i = 0; i<positions.length; i++) {
             // mark all squares around a position that are not part of the ship as hit
-            for (let direction of [[-1, 0], [1, 0], [0, -1], [0, 1], [1, 1], [-1, -1], [1, -1], [-1, 1]]) {
-                let newPos = [pos[0] + direction[0], pos[1] + direction[1]];
+            if (this.onBoard(newPos)) {
                 if (this.checkEmpty(newPos)) {
                     this.board[newPos[0]][newPos[1]] = 1; // mark as hit
                 }
             }
         }
+    }
+
+    onBoard(position) {
+        return (position[0] >= 0 && position[0] < this.width && position[1] >= 0 && position[1] < this.height)
     }
 
     checkEmpty(pos) {
@@ -59,23 +65,11 @@ export default class Board {
         this.ships.push(new Ship(pos, length, rotation));
     }
 
-    checkValidShipPosition(pos, length, rotation) {
+    checkValidShipPosition(ship) {
         // checks whether or not a ship can be placed on the position
-        // get all positions
-        for (let i=0; i<length; i++) {
-            let position;
-            if (rotation === "vertical") {
-                position = [pos[0], pos[1]+i];
-            }
-            else {
-                position = [pos[0]+1, pos[1]];
-            }
-            // check whether or not there is a ship surrounding each position
-            for (let direction of [[-1, 0], [1, 0], [0, -1], [0, 1], [1, 1], [-1, -1], [1, -1], [-1, 1]]) {
-                let newPos = [position[0] + direction[0], position[1] + direction[1]];
-                if (!this.checkEmpty(newPos)) {
-                    return false;
-                }
+        for (let pos of ship.getAllSurroundingPositions()) {
+            if (this.onBoard(pos) && this.board[pos[0]][pos[1]] !== 0) {
+                return false;
             }
         }
         return true;

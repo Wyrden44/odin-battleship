@@ -63,4 +63,9 @@ describe('Ship', () => {
         ship.hit([1, 0]);
         expect(ship.isSunk()).toBe(true); 
     });
+
+    it("should return all of it's positions correctly", () => {
+        const ship = new Ship([2, 0], 2, "horizontal");
+        expect(ship.getAllSquarePositions()).toEqual([[2, 0], [2, 1]]);
+    });
 });
