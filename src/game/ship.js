@@ -39,7 +39,38 @@ export default class Ship {
     }
 
     isSunk() {
-        console.log("CELLS", this.cells)
         return !this.cells.includes(false);
+    }
+
+    getAllSquarePositions() {
+        // returns all grid position of the ships cells
+        const positions = [];
+        for (let i=0; i<this.shipLength; i++) {
+            if (this.rotation === "vertical") {
+                positions.push([this.startPosition[0]+i, this.startPosition[1]]);
+            }
+            else {
+                positions.push([this.startPosition[0], this.startPosition[1]+i]);
+            }
+        }
+        return positions;
+    }
+
+    getAllSurroundingPositions() {
+        // marks all squares around a ship after sinking
+        const positions = this.getAllSquarePositions();
+        const surrounding = [];
+        for (let i = 0; i<positions.length; i++) {
+            // mark all squares around a position that are not part of the ship as hit
+            for (let direction of [[-1, 0], [1, 0], [0, -1], [0, 1], [1, 1], [-1, -1], [1, -1], [-1, 1]]) {
+                let newPos = [positions[i][0] + direction[0], positions[i][1] + direction[1]];
+                // Check if newPos is not in positions
+                if (positions.some(pos => pos[0] === newPos[0] && pos[1] === newPos[1])) {
+                    continue
+                }
+                surrounding.push(newPos);
+            }
+        }
+        return surrounding;
     }
 }
