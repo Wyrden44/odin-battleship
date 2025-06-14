@@ -1,6 +1,7 @@
 export default class BoardDisplayer {
     static createBoard(boardArray) {
         const boardContainer = document.createElement("div");
+        boardContainer.classList.add("board-container");
 
         boardArray.forEach((row, rowIndex) => {
             const rowDiv = document.createElement("div");
