@@ -25,6 +25,8 @@ export default class PlayerDisplayer {
         nameContainer.appendChild(nameElement);
         nameContainer.appendChild(changeNameButton);
 
+        playerContainer.appendChild(nameContainer);
+
         const boardContainer = BoardDisplayer.createBoard(playerBoardArray);
 
         playerContainer.appendChild(boardContainer);

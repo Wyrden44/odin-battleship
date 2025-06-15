@@ -6,7 +6,7 @@ export default class DOMManager {
     }
 
     buildWebpage(player1, player2, board1, board2) {
-        const mainContainer = document.querySelector(".main-container");
+        const mainContainer = document.querySelector("body");
         
         const p1Container = PlayerDisplayer.createPlayer(player1.name, 1, board1);
         const p2Container = PlayerDisplayer.createPlayer(player2.name, 2, board2);
