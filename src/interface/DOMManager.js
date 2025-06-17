@@ -1,3 +1,4 @@
+import { shipTypes } from "../utils/settings";
 import PlayerDisplayer from "./playerDisplayer";
 import ShipContainerDisplayer from "./shipContainerDisplayer";
 
@@ -12,8 +13,9 @@ export default class DOMManager {
         const p1Container = PlayerDisplayer.createPlayer(player1.name, 1, board1);
         const p2Container = PlayerDisplayer.createPlayer(player2.name, 2, board2);
 
-        const shipContainer = ShipContainerDisplayer.createShipContainer()
-
+        const p1shipContainer = ShipContainerDisplayer.createShipContainer(shipTypes);
+        
+        mainContainer.appendChild(p1shipContainer);
         mainContainer.appendChild(p1Container);
         mainContainer.appendChild(p2Container);
     }

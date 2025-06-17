@@ -30,7 +30,7 @@ export default class PlayerDisplayer {
         const boardContainer = BoardDisplayer.createBoard(playerBoardArray);
 
         playerContainer.appendChild(boardContainer);
-
+        
         return playerContainer;
     }
 }

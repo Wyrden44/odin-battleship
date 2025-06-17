@@ -1,11 +1,12 @@
+import { GRID_SIZE, shipTypes } from "../utils/settings";
 import Board from "./board";
 import ShipContainer from "./shipContainer";
 
 export default class Player {
     constructor(name) {
-        this.gameboard = new Board(10, 10); // TODO: remove magic number
+        this.gameboard = new Board(GRID_SIZE, GRID_SIZE); // TODO: remove magic number
         this.name = name;
-        this.shipContainer = new ShipContainer(10, [[1, 4], [2, 3], [3, 2], [4, 1]]); // pregame ship container with all possible ships
+        this.shipContainer = new ShipContainer(10, shipTypes); // pregame ship container with all possible ships
     }
 
     validatePosition(pos) {

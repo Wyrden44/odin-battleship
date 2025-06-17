@@ -10,16 +10,16 @@ export default class ShipContainer {
     createAllShips(shipSpecifications) {
         let ships = [];
         let currentPosition = [0, 0]; // current ship position in container
-        for (let [ count, length ] of shipSpecifications) {
-            for (let i=0; i<count; i++) {
-                if (currentPosition[1] + length > this.width) {
+        shipSpecifications.forEach(shipInfo => {
+            for (let i=0; i<shipInfo.amount; i++) {
+                if (currentPosition[1] + shipInfo.size > this.width) {
                     currentPosition[1] = 0;
                     currentPosition[0] += 2;
                 }
-                ships.push(new Ship(currentPosition.slice(), length, "horizontal"));
+                ships.push(new Ship(currentPosition.slice(), shipInfo.size, "horizontal"));
                 currentPosition[1]++;
             }
-        }
+        });
         return ships;
     }
 }

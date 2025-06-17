@@ -4,14 +4,12 @@ export default class ShipContainerDisplayer {
         shipContainer.classList.add("ship-container");
 
         shipInformation.forEach(shipInfo => {
-            let [ numShips, shipLength ] = shipInfo;
-
-            for (let i = 0; i < numShips; i++) {
+            for (let i = 0; i < shipInfo.amount; i++) {
                 // create ship
                 let ship = document.createElement("div");
-                ship.classList.add(`ship-${shipLength}`);
+                ship.classList.add(`ship-${shipInfo.size}`);
 
-                for (let j = 0; j < shipLength; j++) {
+                for (let j = 0; j < shipInfo.size; j++) {
                     let shipCell = document.createElement("div");
                     shipCell.classList.add("ship-cell");
 
