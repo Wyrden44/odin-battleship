@@ -65,11 +65,27 @@ export default class Board {
         this.ships.push(new Ship(pos, length, rotation));
     }
 
+    addShip(ship) {
+        this.ships.push(ship);
+    }
+
     checkValidShipPosition(ship) {
         // checks whether or not a ship can be placed on the position
-        for (let pos of ship.getAllSurroundingPositions()) {
-            if (this.onBoard(pos) && this.board[pos[0]][pos[1]] !== 0) {
+        for (let pos of ship.getAllSquarePositions()) {
+            if (!this.onBoard(pos)) {
                 return false;
+            }
+            for (let otherShip of this.ships) {
+                if (otherShip.onShip(pos)) {
+                    return false;
+                }
+            }
+        }
+        for (let pos of ship.getAllSurroundingPositions()) {
+            for (let otherShip of this.ships) {
+                if (otherShip.onShip(pos)) {
+                    return false;
+                }
             }
         }
         return true;

@@ -11,6 +11,8 @@ export default class ShipContainerDisplayer {
                 // create ship
                 let ship = document.createElement("div");
                 ship.classList.add(`ship-${shipInfo.size}`);
+                ship.id = `ship-${shipInfo.size}-${i}`
+                ship.setAttribute("draggable", "true");
 
                 for (let j = 0; j < shipInfo.size; j++) {
                     let shipCell = document.createElement("div");
@@ -26,5 +28,19 @@ export default class ShipContainerDisplayer {
         });
 
         return shipContainer;
+    }
+
+    static getAllShips() {
+        const containers = document.querySelectorAll(".ship-type-container");
+        let shipElements = [];
+
+        containers.forEach(container => {
+            const ships = container.querySelectorAll("div[draggable='true']");
+            ships.forEach(ship => {
+                shipElements.push(ship);
+            });
+        });
+        
+        return shipElements;
     }
 }

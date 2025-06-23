@@ -68,4 +68,12 @@ describe('Ship', () => {
         const ship = new Ship([2, 0], 2, "horizontal");
         expect(ship.getAllSquarePositions()).toEqual([[2, 0], [2, 1]]);
     });
+
+    it("should check if a position is on it correcttly", () => {
+        const ship = new Ship([2, 1], 3, "horizontal");
+        expect(ship.onShip([2, 1])).toBe(true);
+        expect(ship.onShip([2, 3])).toBe(true);
+        expect(ship.onShip([2, 0])).toBe(false);
+        expect(ship.onShip([1, 1])).toBe(false);
+    });
 });

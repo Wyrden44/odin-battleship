@@ -1,3 +1,5 @@
+import PlayerDisplayer from "./playerDisplayer";
+
 export default class BoardDisplayer {
     static createBoard(boardArray) {
         const boardContainer = document.createElement("div");
@@ -18,23 +20,46 @@ export default class BoardDisplayer {
         return boardContainer;
     }
 
-    static markShipCell(boardContainer, cellPos) {
-        const cell = boardContainer.querySelector(`.board-cell[data-row="${cellPos.row}"][data-col="${cellPos.col}"]`);
-        cell.classList.add("ship");
+    static redisplayShips(boardNumber, ships) {
+        const player = document.querySelector(`.player-${boardNumber}-container`);
+        const boardContainer = player.querySelector(".board-container");
+        ships.forEach(ship => {
+            for (let pos of ship.getAllSquarePositions()) {
+                this.unmarkCell(boardContainer, pos);
+                this.markShipCell(boardContainer, pos);
+            }
+        });
+    }
+
+    static getAllCells(boardNumber) {
+        return document.querySelector(`.player-${boardNumber}-container`).querySelectorAll(".board-cell");
+    }
+
+    static unmarkCell(boardContainer, cellPos) {
+        const cell = boardContainer.querySelector(`.board-cell[data-row="${cellPos[0]}"][data-col="${cellPos[1]}"]`);
+        while (cell.classList.length > 0) {
+            cell.classList.remove(cell.classList[0]);
+        }
+        cell.classList.add("board-cell");
     }
 
     static markShipCell(boardContainer, cellPos) {
-        const cell = boardContainer.querySelector(`.board-cell[data-row="${cellPos.row}"][data-col="${cellPos.col}"]`);
+        const cell = boardContainer.querySelector(`.board-cell[data-row="${cellPos[0]}"][data-col="${cellPos[1]}"]`);
+        cell.classList.add("ship");
+    }
+
+    static markShipHitCell(boardContainer, cellPos) {
+        const cell = boardContainer.querySelector(`.board-cell[data-row="${cellPos[0]}"][data-col="${cellPos[1]}"]`);
         cell.classList.add("ship-hit");
     }
 
     static markShipDestroyedCell(boardContainer, cellPos) {
-        const cell = boardContainer.querySelector(`.board-cell[data-row="${cellPos.row}"][data-col="${cellPos.col}"]`);
+        const cell = boardContainer.querySelector(`.board-cell[data-row="${cellPos[0]}"][data-col="${cellPos[1]}"]`);
         cell.classList.add("ship-destroyed");
     }
 
     static markMissCell(boardContainer, cellPos) {
-        const cell = boardContainer.querySelector(`.board-cell[data-row="${cellPos.row}"][data-col="${cellPos.col}"]`);
+        const cell = boardContainer.querySelector(`.board-cell[data-row="${cellPos[0]}"][data-col="${cellPos[1]}"]`);
         cell.classList.add("miss");
     }
 }

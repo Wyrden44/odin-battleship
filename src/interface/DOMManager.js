@@ -1,8 +1,13 @@
 import { shipTypes } from "../utils/settings";
+import BoardDisplayer from "./boardDisplayer";
+import MainEventHandler from "./interactivity/mainEventHandler";
+import PregameEventHandler from "./interactivity/pregameEventHandler";
 import PlayerDisplayer from "./playerDisplayer";
 import ShipContainerDisplayer from "./shipContainerDisplayer";
 
 export default class DOMManager {
+    mainEventHandler;
+
     constructor(appController) {
         this.appController = appController;
     }
@@ -18,5 +23,15 @@ export default class DOMManager {
         mainContainer.appendChild(p1shipContainer);
         mainContainer.appendChild(p1Container);
         mainContainer.appendChild(p2Container);
+
+        this.addEventHandlers();
+    }
+
+    redisplayShips(boardNumber, ships) {
+        BoardDisplayer.redisplayShips(boardNumber, ships)
+    }
+
+    addEventHandlers() {
+        this.mainEventHandler = new MainEventHandler(this.appController, ShipContainerDisplayer.getAllShips(), BoardDisplayer.getAllCells(1));
     }
 }

@@ -27,4 +27,8 @@ export default class Player {
     gameOver() {
         return this.gameboard.checkAllSunk();
     }
+
+    getShips() {
+        return this.gameboard.ships;
+    }
 }

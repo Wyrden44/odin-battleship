@@ -14,5 +14,10 @@ export default class AppController {
         );
     }
 
-    
+    addShip(boardNumber, row, col, rotation, size) {
+        const success = this.gameController.addShip(boardNumber, row, col, rotation, size);
+        if (success) {
+            this.DOMManager.redisplayShips(boardNumber, this.gameController.player1.getShips());
+        }
+    }
 }

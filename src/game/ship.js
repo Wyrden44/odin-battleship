@@ -56,6 +56,16 @@ export default class Ship {
         return positions;
     }
 
+    onShip(pos) {
+        // checks whether or not a position is on the ship
+        for (let pos2 of this.getAllSquarePositions()) {
+            if (pos[0] === pos2[0] && pos[1] === pos2[1]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     getAllSurroundingPositions() {
         // marks all squares around a ship after sinking
         const positions = this.getAllSquarePositions();

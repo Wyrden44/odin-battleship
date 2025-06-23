@@ -1,4 +1,5 @@
 import Player from "./player";
+import Ship from "./ship";
 
 export default class GameController {
     constructor() {
@@ -8,6 +9,25 @@ export default class GameController {
         // current player is always the receiving player
         this.currentPlayer = this.player2;
         this.gameOver = false;
+    }
+
+    // pregame methods
+    addShip(boardNumber, row, col, rotation, size) {
+        const ship = new Ship([row, col], size, rotation);
+        if (boardNumber === 1) {
+            console.log(this.player1.gameboard.checkValidShipPosition(ship))
+            if (!this.player1.gameboard.checkValidShipPosition(ship)) {
+                return false;
+            }
+            this.player1.gameboard.addShip(ship);
+        }
+        else {
+            if (!this.player2.gameboard.checkValidShipPosition(ship)) {
+                return false;
+            }
+            this.player2.gameboard.addShip(ship);
+        }
+        return true;
     }
 
     playRound(playerNumber, position) {
