@@ -35,10 +35,12 @@ export default class PregameEventHandler {
                     const row = +cell.getAttribute("data-row");
                     const rotation = "horizontal";
 
-                    this.appController.addShip(1, row, column, rotation, shipSize);
+                    const success = this.appController.addShip(1, row, column, rotation, shipSize);
 
-                    // remove dropped ship from ship container
-                    document.querySelector(`#${data}`).remove();
+                    // remove dropped ship from ship container if successfully added
+                    if (success) {
+                        document.querySelector(`#${data}`).remove();
+                    }
                 }
             });
         });

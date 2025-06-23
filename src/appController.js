@@ -19,5 +19,6 @@ export default class AppController {
         if (success) {
             this.DOMManager.redisplayShips(boardNumber, this.gameController.player1.getShips());
         }
+        return success;
     }
 }

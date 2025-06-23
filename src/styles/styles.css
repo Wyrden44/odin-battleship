@@ -63,6 +63,8 @@ body {
 }
 
 .ship-container {
+    flex-shrink: 0;
+    
     display: flex;
     flex-flow: column wrap;
     gap: 15px;
