@@ -15,7 +15,6 @@ export default class GameController {
     addShip(boardNumber, row, col, rotation, size) {
         const ship = new Ship([row, col], size, rotation);
         if (boardNumber === 1) {
-            console.log(this.player1.gameboard.checkValidShipPosition(ship))
             if (!this.player1.gameboard.checkValidShipPosition(ship)) {
                 return false;
             }
@@ -26,6 +25,22 @@ export default class GameController {
                 return false;
             }
             this.player2.gameboard.addShip(ship);
+        }
+        return true;
+    }
+
+    rotateShip(boardNumber, row, col) {
+        if (boardNumber === 1) {
+            if (!this.player1.gameboard.checkRotatable(row, col)) {
+                return false;
+            }
+            this.player1.gameboard.rotateShip(row, col);
+        }
+        else {
+            if (!this.player1.gameboard.checkRotatable(row, col)) {
+                return false;
+            }
+            this.player2.gameboard.rotateShip(row, col);
         }
         return true;
     }

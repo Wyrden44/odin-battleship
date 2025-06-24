@@ -83,4 +83,8 @@ export default class Ship {
         }
         return surrounding;
     }
+
+    rotate() {
+        this.rotation = (this.rotation === "horizontal") ? "vertical" : "horizontal";
+    }
 }

@@ -7,16 +7,38 @@ export default class PregameEventHandler {
     createEvents(shipElements, boardCells) {
         this.addShipContainerEvents(shipElements);
         this.addDropzoneEvents(boardCells);
+        this.addBoardShipEvents(boardCells);
     }
 
     disableEvents(shipElements) {
+        // TODO
         //this.disableShipContainerEvents(shipElements());
     }
 
+    addBoardShipEvents(boardCells) {
+        boardCells.forEach(cell => {
+            cell.addEventListener("click", e => this.onCellClick(e));
+        });
+    }
+    
+    onCellClick(e) {
+        if (e.target.classList.contains("ship")) {
+            // cell is part of ship
+            const row = +e.target.getAttribute("data-row");
+            const col = +e.target.getAttribute("data-col");
+            this.appController.rotateShip(1, row, col);
+        }
+    }
+
+    // disableBoardShipEvents(boardCells) {
+    //     boardCells.forEach(cell => {
+    //         cell.removeEventListener("click", this.onCellClick);
+    //     });
+    // }
+
     addShipContainerEvents(shipElements) {
         shipElements.forEach(ship => {
-            ship.addEventListener("dragstart", e => this.onDragStart(e, ship));
-            ship.addEventListener("dragend", e => this.onDragEnd(e, ship));
+            ship.addEventListener("dragstart", this.onDragStart);
         });
     }
 
@@ -52,17 +74,11 @@ export default class PregameEventHandler {
 
     disableShipContainerEvents(shipElements) {
         shipElements.forEach(ship => {
-            ship.removeEventListener("dragstart", this.onDragStart(e, ship));
-            ship.removeEventListener("dragend", this.onDragEnd(e, ship));
+            ship.removeEventListener("dragstart", this.onDragStart);
         });
     }
 
-    onDragEnd(e, ship) {
-        const data = e.dataTransfer.getData("text/plain");
-        console.log("Dragend", data, "TARGET", e.target, e.target.id);
-    };
-
-    onDragStart(e, ship) {
+    onDragStart(e) {
         e.dataTransfer.setData("text/plain", e.target.id);
     };
 }

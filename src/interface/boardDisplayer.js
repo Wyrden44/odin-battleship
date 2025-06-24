@@ -23,9 +23,12 @@ export default class BoardDisplayer {
     static redisplayShips(boardNumber, ships) {
         const player = document.querySelector(`.player-${boardNumber}-container`);
         const boardContainer = player.querySelector(".board-container");
+        this.getAllCells(boardNumber).forEach(cell => {
+            let pos = [+cell.getAttribute("data-row"), +cell.getAttribute("data-col")];
+            this.unmarkCell(boardContainer, pos)
+        });
         ships.forEach(ship => {
             for (let pos of ship.getAllSquarePositions()) {
-                this.unmarkCell(boardContainer, pos);
                 this.markShipCell(boardContainer, pos);
             }
         });
