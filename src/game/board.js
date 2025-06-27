@@ -99,4 +99,45 @@ export default class Board {
         }
         return true;
     }
+
+    getShipIndex(row, col) {
+        for (let i=0; i<this.ships.length; i++) {
+            for (let position of this.ships[i].getAllSquarePositions()) {
+                if (position[0] === row && position[1] === col) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    checkRotatable(row, col) {
+        let idx = this.getShipIndex(row, col);
+        if (idx !== -1) { // ship found
+            let ship = this.ships[idx];
+            // rotate ship and check if valid posiiton
+            ship.rotate();
+            // temporarily remove ship from ships list
+            this.ships.splice(idx, 1);
+            if (this.checkValidShipPosition(ship)) {
+                // reset ship back to its normal position
+                ship.rotate();
+                this.ships.push(ship);
+            }
+            else {
+                return false;
+            }
+
+            console.log(this.ships.forEach(ship => console.log(ship.startPosition)))
+            return true;
+        }
+        return false;
+    }
+
+    rotateShip(row, col) {
+        let idx = this.getShipIndex(row, col);
+        if (idx !== -1) {
+            this.ships[idx].rotate();
+        }
+    }
 }

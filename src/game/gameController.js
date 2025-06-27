@@ -31,10 +31,18 @@ export default class GameController {
 
     rotateShip(boardNumber, row, col) {
         if (boardNumber === 1) {
-            if (!this.player1.checkRotatable(row, col)) {
+            if (!this.player1.gameboard.checkRotatable(row, col)) {
                 return false;
             }
+            this.player1.gameboard.rotateShip(row, col);
         }
+        else {
+            if (!this.player1.gameboard.checkRotatable(row, col)) {
+                return false;
+            }
+            this.player2.gameboard.rotateShip(row, col);
+        }
+        return true;
     }
 
     playRound(playerNumber, position) {
