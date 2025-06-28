@@ -30,4 +30,10 @@ export default class AppController {
         }
         return success;
     }
+
+    removeShip(boardNumber, row, col) {
+        const shipType = this.gameController.removeShip(boardNumber, row, col);
+        this.DOMManager.redisplayShips(boardNumber, this.gameController.player1.getShips());
+        this.DOMManager.addShipToShipContainer(boardNumber, shipType);
+    }
 }

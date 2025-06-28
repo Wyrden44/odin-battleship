@@ -69,6 +69,18 @@ export default class Board {
         this.ships.push(ship);
     }
 
+    removeShip(row, col) {
+        // selects and removes ship from ships list
+        shipLoop: for (let i=0; i<this.ships.length; i++) {
+            for (let pos of this.ships[i].getAllSquarePositions()) {
+                if (pos[0] === row && pos[1] === col) {
+                    this.ships.splice(i, 1);
+                    break shipLoop;
+                }
+            }
+        }
+    }
+
     checkValidShipPosition(ship) {
         // checks whether or not a ship can be placed on the position
         for (let pos of ship.getAllSquarePositions()) {

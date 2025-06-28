@@ -8,18 +8,7 @@ export default class ShipContainerDisplayer {
             shipTypeContainer.classList.add(`ship-${shipInfo.size}-container`)
             shipTypeContainer.classList.add(`ship-type-container`)
             for (let i = 0; i < shipInfo.amount; i++) {
-                // create ship
-                let ship = document.createElement("div");
-                ship.classList.add(`ship-${shipInfo.size}`);
-                ship.id = `ship-${shipInfo.size}-${i}`
-                ship.setAttribute("draggable", "true");
-
-                for (let j = 0; j < shipInfo.size; j++) {
-                    let shipCell = document.createElement("div");
-                    shipCell.classList.add("ship-cell");
-
-                    ship.appendChild(shipCell);
-                }
+                let ship = this.createShip(shipInfo.size, i);
 
                 shipTypeContainer.appendChild(ship);
             }
@@ -28,6 +17,36 @@ export default class ShipContainerDisplayer {
         });
 
         return shipContainer;
+    }
+
+    static createShip(size, idNumber) {
+        // create ship
+        let ship = document.createElement("div");
+        ship.classList.add(`ship-${size}`);
+        ship.setAttribute("draggable", "true");
+        ship.id = `ship-${size}-${idNumber}`;
+
+        for (let j = 0; j < size; j++) {
+            let shipCell = document.createElement("div");
+            shipCell.classList.add("ship-cell");
+
+            ship.appendChild(shipCell);
+        }
+
+        return ship;
+    }
+
+    static redisplayShip(boardNumber, shipType) {
+        const container = document.querySelector(".ship-container");
+        const shipContainer = container.querySelector(`.ship-${shipType}-container`);
+
+        const ships = shipContainer.querySelectorAll(`.ship-${shipType}`);
+        for (let ship of ships) {
+            if (ship.style.display === "none") {
+                ship.style.display = "flex";
+                break;
+            }
+        }
     }
 
     static getAllShips() {

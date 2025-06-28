@@ -29,6 +29,19 @@ export default class GameController {
         return true;
     }
 
+    removeShip(boardNumber, row, col) {
+        if (boardNumber === 1) {
+            const shipType = this.player1.gameboard.ships[this.player1.gameboard.getShipIndex(row, col)].shipLength;
+            this.player1.gameboard.removeShip(row, col);
+            return shipType;
+        }
+        else {
+            const shipType = this.player2.gameboard.ships[this.player2.gameboard.getShipIndex(row, col)].shipLength;
+            this.player2.gameboard.removeShip(row, col);
+            return shipType;
+        }
+    }
+
     rotateShip(boardNumber, row, col) {
         if (boardNumber === 1) {
             if (!this.player1.gameboard.checkRotatable(row, col)) {

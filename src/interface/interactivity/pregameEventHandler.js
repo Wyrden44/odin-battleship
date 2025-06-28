@@ -18,6 +18,7 @@ export default class PregameEventHandler {
     addBoardShipEvents(boardCells) {
         boardCells.forEach(cell => {
             cell.addEventListener("click", e => this.onCellClick(e));
+            cell.addEventListener("dblclick", e => this.onCellDblClick(e));
         });
     }
     
@@ -27,6 +28,15 @@ export default class PregameEventHandler {
             const row = +e.target.getAttribute("data-row");
             const col = +e.target.getAttribute("data-col");
             this.appController.rotateShip(1, row, col);
+        }
+    }
+
+    onCellDblClick(e) {
+        if (e.target.classList.contains("ship")) {
+            // cell is part of ship
+            const row = +e.target.getAttribute("data-row");
+            const col = +e.target.getAttribute("data-col");
+            this.appController.removeShip(1, row, col);
         }
     }
 
@@ -61,7 +71,7 @@ export default class PregameEventHandler {
 
                     // remove dropped ship from ship container if successfully added
                     if (success) {
-                        document.querySelector(`#${data}`).remove();
+                        document.querySelector(`#${data}`).style.display = "none";
                     }
                 }
             });

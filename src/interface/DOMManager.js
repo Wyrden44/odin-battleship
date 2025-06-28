@@ -31,6 +31,10 @@ export default class DOMManager {
         BoardDisplayer.redisplayShips(boardNumber, ships)
     }
 
+    addShipToShipContainer(boardNumber, shipType) {
+        ShipContainerDisplayer.redisplayShip(boardNumber, shipType);
+    }
+
     addEventHandlers() {
         this.mainEventHandler = new MainEventHandler(this.appController, ShipContainerDisplayer.getAllShips(), BoardDisplayer.getAllCells(1));
     }
