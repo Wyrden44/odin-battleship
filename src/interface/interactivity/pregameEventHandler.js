@@ -1,7 +1,10 @@
+import BoardDisplayer from "../boardDisplayer";
+
 export default class PregameEventHandler {
     constructor(appController, shipElements, boardCells) {
         this.appController = appController;
         this.createEvents(shipElements, boardCells);
+        this.dragged = null;
     }
 
     createEvents(shipElements, boardCells) {
@@ -48,7 +51,7 @@ export default class PregameEventHandler {
 
     addShipContainerEvents(shipElements) {
         shipElements.forEach(ship => {
-            ship.addEventListener("dragstart", this.onDragStart);
+            ship.addEventListener("dragstart", e => this.onDragStart(e));
         });
     }
 
@@ -56,6 +59,18 @@ export default class PregameEventHandler {
         boardCells.forEach(cell => {
             cell.addEventListener("dragover", (e) => {
                 e.preventDefault();
+            });
+
+            cell.addEventListener("dragenter", (e) => {
+                if (/^ship-[0-9]/.test(this.dragged)) {
+                    const shipSize = +this.dragged.split("-")[1];
+
+                    const col = +cell.getAttribute("data-col");
+                    const row = +cell.getAttribute("data-row");
+                    
+                    BoardDisplayer.clearShipPreview(1);
+                    BoardDisplayer.displayShipPreview(1, row, col, shipSize);
+                }
             });
 
             cell.addEventListener("drop", e => {
@@ -84,11 +99,12 @@ export default class PregameEventHandler {
 
     disableShipContainerEvents(shipElements) {
         shipElements.forEach(ship => {
-            ship.removeEventListener("dragstart", this.onDragStart);
+            ship.removeEventListener("dragstart", (e) => this.onDragStart(e));
         });
     }
 
     onDragStart(e) {
         e.dataTransfer.setData("text/plain", e.target.id);
+        this.dragged = e.target.id;
     };
 }

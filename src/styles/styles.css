@@ -5,6 +5,7 @@
 
 body {
     --ship-background: #1948e4;
+    --ship-background-light: #1948e499;
     --ship-destroyed-background: #dd3832;
 
     --cell-size: 50px;
@@ -36,6 +37,10 @@ body {
 
 .board-cell.ship {
     background-color: var(--ship-background);
+}
+
+.board-cell.ship-preview {
+    background-color: var(--ship-background-light);
 }
 
 .board-cell.ship-hit {
