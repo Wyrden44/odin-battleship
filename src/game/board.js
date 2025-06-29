@@ -124,6 +124,7 @@ export default class Board {
     }
 
     checkRotatable(row, col) {
+        let success = false;
         let idx = this.getShipIndex(row, col);
         if (idx !== -1) { // ship found
             let ship = this.ships[idx];
@@ -132,18 +133,16 @@ export default class Board {
             // temporarily remove ship from ships list
             this.ships.splice(idx, 1);
             if (this.checkValidShipPosition(ship)) {
-                // reset ship back to its normal position
-                ship.rotate();
-                this.ships.push(ship);
+                success = true;
             }
             else {
-                return false;
+                success = false;
             }
-
-            console.log(this.ships.forEach(ship => console.log(ship.startPosition)))
-            return true;
+            // reset ship back to its normal position
+            ship.rotate();
+            this.ships.push(ship);
         }
-        return false;
+        return success;
     }
 
     rotateShip(row, col) {
